@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>New Tab</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="wallpaper" aria-hidden="true"></div>
+  <div id="wallpaperShade" aria-hidden="true"></div>
+  <div id="dropOverlay" class="drop-overlay">
+    <div class="drop-card"><span class="drop-icon">✦</span><h2>Drop to make it yours</h2><p>Images, GIFs, MP4 or WebM video</p></div>
+  </div>
+  <header class="topbar">
+    
+    <div class="top-actions">
+      <button class="icon-button" id="libraryToggle" data-layout-item="libraryToggle" title="Wallpaper library" aria-label="Wallpaper library">▤</button>
+    </div>
+    <div class="top-right-actions" data-hide-key="arrangeButton"><button class="arrange-button" id="arrangeToggle" title="Move and resize page elements" aria-pressed="false"><span>↗</span> Arrange layout</button></div>
+  </header>
+
+  <main class="center">
+    <div class="date-chip" data-layout-item="dateChip"><span class="date-dot"></span><span id="date"></span></div>
+    <div class="greeting" id="greeting" data-layout-item="greeting">A little space, just for you</div>
+    <div class="clock-wrap" data-layout-item="clockWrap"><div class="clock" id="clock">10:53</div><div class="clock-caption">LOCAL TIME <span class="clock-live"></span></div></div>
+    <form class="search" id="searchForm" data-layout-item="search">
+      <span class="search-icon">⌕</span>
+      <input id="searchInput" type="search" placeholder="Search anything or enter a URL…" autocomplete="off" aria-label="Search the web">
+      <span class="search-hint">↵</span>
+    </form>
+    <div class="section-label" data-layout-item="sectionLabel"><span>YOUR SPACE</span><span class="section-line"></span><span>QUICK LAUNCH</span></div>
+    <div class="shortcuts" id="shortcuts" data-layout-item="shortcuts">
+      <a class="shortcut" href="https://www.google.com"><span class="shortcut-icon google">G</span><span>Google</span></a>
+      <a class="shortcut" href="https://www.youtube.com"><span class="shortcut-icon youtube">▶</span><span>YouTube</span></a>
+      <a class="shortcut" href="https://mail.google.com"><span class="shortcut-icon mail">✉</span><span>Gmail</span></a>
+      <button class="shortcut add-shortcut" id="addShortcut"><span class="shortcut-icon">＋</span><span>Add link</span></button>
+    </div>
+    <div class="focus-card" data-layout-item="focusCard">
+      <span class="focus-symbol">✳</span>
+      <div class="focus-copy"><span class="focus-label">A MOMENT TO FOCUS</span><input id="focusInput" type="text" maxlength="90" placeholder="What matters most today?" aria-label="Today's focus"></div>
+      <span class="focus-enter">↵</span>
+    </div>
+  </main>
+  <div id="emptyMediaHint" class="empty-media-hint" data-layout-item="emptyMediaHint"><span class="hint-spark">✦</span><span><strong>Make this space yours</strong><small>Drag &amp; drop an image, GIF or video here, from your computer or straight from any webpage. You can also right-click media on a site and choose “Set as wallpaper”.</small></span><span class="hint-arrow">↗</span></div>
+  <footer class="footer">
+    <a class="footer-note webot-credit" data-layout-item="webotCredit" href="https://webot.surajdev.com/" target="_blank" rel="noopener noreferrer">Built by <strong>Webot</strong></a>
+    <button class="footer-button" id="editButton" data-layout-item="editButton">Personalize <span>↗</span></button>
+  </footer>
+  <input type="file" id="fileInput" accept="image/*,video/mp4,video/webm,video/ogg" hidden>
+
+  <aside class="panel" id="libraryPanel" aria-label="Wallpaper library">
+    <div class="panel-head"><div><div class="eyebrow">YOUR COLLECTION</div><h2>Wallpaper library</h2></div><button class="close-button" data-close="libraryPanel">×</button></div>
+    <p class="panel-intro">Keep a few moods close. Choose one to make it your background.</p>
+    <div class="library-grid" id="libraryGrid"></div>
+    <div class="empty-library" id="emptyLibrary"><div class="empty-art">✧</div><h3>A blank canvas</h3><p>Add an image, GIF or video to start your collection.</p><button class="primary-button" id="emptyUpload">Choose media</button></div>
+    <div class="panel-bottom"><button class="secondary-button" id="clearLibrary">Clear library</button><span>Stored on this device</span></div>
+  </aside>
+
+  <aside class="panel settings-panel" id="settingsPanel" aria-label="Personalization settings">
+    <div class="panel-head"><div><div class="eyebrow">MAKE IT YOURS</div><h2>Personalize</h2></div><button class="close-button" data-close="settingsPanel">×</button></div>
+    <section class="setting-group">
+      <h3>Page elements</h3>
+      <p class="small-copy">Turn any element on or off. Hidden elements can be added back here at any time.</p>
+      <div id="elementToggles"></div>
+      <button class="secondary-button full-width" id="showAllElements">👁 Show all elements</button>
+    </section>
+    <section class="setting-group">
+      <h3>Wallpaper</h3>
+      <label class="setting-label" for="fitSelect">Image fit</label>
+      <select id="fitSelect"><option value="cover">Fill screen</option><option value="contain">Fit entire image</option><option value="auto">Original size</option></select>
+      <label class="setting-label range-label" for="brightness">Brightness <output id="brightnessValue">75%</output></label>
+      <input type="range" id="brightness" min="25" max="120" value="75">
+      <label class="setting-label range-label" for="blur">Background blur <output id="blurValue">0 px</output></label>
+      <input type="range" id="blur" min="0" max="12" value="0">
+      <label class="setting-row"><span><b>Pause video</b><small>Reduce motion and battery use</small></span><input type="checkbox" id="pauseVideo"></label>
+    </section>
+    <section class="setting-group">
+      <h3>Tips</h3>
+      <p class="small-copy"><b>Wallpaper:</b> drag &amp; drop media from your computer or any webpage onto this page, or right-click it on a site → Set as wallpaper.</p>
+      <p class="small-copy"><b>Chrome footer:</b> turn it off in Customize Chrome → Footer → “Show footer on New Tab page”.</p>
+      <button class="secondary-button full-width" id="showTipAgain">Show the welcome tips again</button>
+    </section>
+    <section class="setting-group">
+      <h3>Layout</h3>
+      <p class="small-copy">Move and resize elements from the Arrange layout control. Positions are saved on this device.</p>
+      <button class="secondary-button full-width" id="arrangeFromPanel" style="margin-bottom:8px">↗ Arrange layout</button>
+      <button class="secondary-button full-width" id="resetLayout">↺ Reset all element positions</button>
+    </section>
+    <section class="setting-group">
+      <h3>Shortcuts</h3>
+      <p class="small-copy">Add a website to your shortcut row.</p>
+      <button class="secondary-button full-width" id="manageShortcuts">＋ Add a shortcut</button>
+    </section>
+    <div class="panel-bottom"><button class="secondary-button" id="resetSettings">Reset settings</button><span>Changes save automatically</span></div>
+  </aside>
+  <div class="layout-tools" id="layoutTools" hidden aria-label="Selected element layout controls"><span class="layout-tools-label" id="layoutToolsLabel">Element</span><button type="button" data-layout-action="smaller" title="Make smaller" aria-label="Make smaller">−</button><button type="button" data-layout-action="larger" title="Make larger" aria-label="Make larger">＋</button><button type="button" data-layout-action="reset" title="Reset this element" aria-label="Reset this element">↺</button><button type="button" data-layout-action="hide" title="Hide this element" aria-label="Hide this element">Hide</button><button type="button" data-layout-action="done" title="Finish arranging" aria-label="Finish arranging">Done</button></div>
+  <div class="hidden-tray" id="hiddenTray" hidden aria-label="Hidden elements"><span class="hidden-tray-label">Hidden · click to add back</span><span id="hiddenTrayList" class="hidden-tray-list"></span></div>
+  <button type="button" class="reveal-hotspot" id="revealHotspot" title="Personalize" aria-label="Open personalize panel">⚙</button>
+  <div class="welcome-tip" id="welcomeTip" hidden role="note">
+    <div class="tip-title">Two quick tips</div>
+    <p><b>Hide Chrome’s footer:</b> click <i>Customize Chrome</i> (bottom right) → Footer → turn off “Show footer on New Tab page”.</p>
+    <p><b>Set a wallpaper:</b> drag &amp; drop any image, GIF or video onto this page, from a local file or from a site you’re browsing.</p>
+    <button type="button" class="primary-button" id="tipDismiss">Got it</button>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="newtab.js"></script>
+</body>
+</html>
