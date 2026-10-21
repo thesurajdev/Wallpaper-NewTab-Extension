@@ -1,45 +1,53 @@
 # New Tab
 
-A Chrome Manifest V3 extension that lets you customize the New Tab page with image, animated GIF, and video wallpapers.
+A Chrome (Manifest V3) extension that replaces your New Tab page with a clean, customizable one. Use an image, animated GIF or video as your wallpaper, and show or hide every element on the page.
 
-**Built by Webot:** https://webot.surajdev.com/
+**Developed by [Suraj Dev](https://surajdev.com) for [Webot](https://webot.surajdev.com/)**
 
 ## Features
-- Image backgrounds: JPEG, PNG, WebP, AVIF, BMP, SVG and other browser-supported image formats.
-- Animated GIF backgrounds.
-- Muted, looping MP4/WebM (and browser-supported video) backgrounds.
-- Right-click an image or video on a webpage and choose **Set as wallpaper**.
-- Upload media from your computer.
-- Drag and drop media files or media URLs onto the New Tab page.
-- Clock, date, Google search, editable shortcuts.
-- Every element (greeting, date, clock, search, shortcuts, focus card, buttons, credit) can be hidden and added back from **Personalize → Page elements**, or from **Arrange layout** (Hide button + hidden-elements tray).
-- If you hide the Personalize button, hover the bottom-right corner or click the extension toolbar icon to reopen it.
-- Wallpaper fit, brightness and blur controls; pause video toggle.
-- Local wallpaper library with select/delete/clear actions.
-- No analytics, account, remote service or broad host permissions.
+- **Wallpapers:** images (JPEG, PNG, WebP, AVIF, BMP, SVG), animated GIFs, and muted looping MP4/WebM video.
+- **Easy ways to add media:**
+  - Drag and drop a file from your computer onto the page.
+  - Drag media straight from any webpage onto the page.
+  - Right-click an image or video on a site and choose **Set as wallpaper**.
+  - Upload from **Personalize** or the library panel.
+- **Clock, date, greeting, Google search, editable quick-launch shortcuts, and a daily focus card.**
+- **Show or hide every element:** greeting, date, clock, search, section label, shortcuts, focus card, library button, arrange button, Personalize button, credit line and the drop hint. Manage them in **Personalize → Page elements**, or use the **Hide** button and hidden-elements tray in **Arrange layout**.
+- **Arrange layout:** drag and resize elements; positions are saved on your device.
+- **Wallpaper controls:** fit, brightness, blur, and a pause-video toggle.
+- **Local wallpaper library** with select, delete and clear actions.
+- No analytics, accounts, remote services or broad host permissions.
 
-## Install in Chrome
-1. Download and extract `wallpaper-newtab-extension.zip`.
+## Install
+1. Click **Code → Download ZIP** on this repository and extract it (or clone the repo).
 2. Open `chrome://extensions` in Chrome.
 3. Turn on **Developer mode**.
-4. Click **Load unpacked**.
-5. Select the extracted `wallpaper-newtab` folder containing `manifest.json`.
-6. Open a new tab.
-7. To set media from a website, right-click the image or video and select **Set as wallpaper**.
+4. Click **Load unpacked** and select the folder that contains `manifest.json`.
+5. Open a new tab.
 
-## Media capture notes
-- Local uploads/dropped files are stored as blobs in IndexedDB.
-- Right-click capture stores a URL reference, not a downloaded copy. Some sites block embedding or use temporary URLs; upload a local copy if that happens.
-- Cross-tab dragging is browser-dependent; local file drag-and-drop and the right-click action are alternatives.
-- Video starts muted and loops. MP4/H.264 and WebM/VP9 are good choices.
+## Tips
+- **Hidden the Personalize button?** Hover the bottom-right corner to bring up a ⚙ button, or click the extension's toolbar icon while a new tab is open.
+- **Chrome's bottom footer** ("Managed by your organization | New Tab") is drawn by Chrome, not by this extension, so it can't be removed from code. You can turn it off yourself: click **Customize Chrome** (bottom right) → **Footer** → switch off **Show footer on New Tab page**. "Managed by your organization" comes from a policy on your device or profile; check `chrome://policy`.
+
+## Media notes
+- Local uploads and dropped files are stored as blobs in IndexedDB on your device.
+- Right-click capture and dropped web media store a URL reference, not a copy. Some sites block embedding or use temporary URLs; if that happens, save the file and upload it instead.
+- Video starts muted and loops. MP4/H.264 and WebM/VP9 work well.
 
 ## Permissions
-- `storage`: save settings and pending context-menu media metadata.
-- `contextMenus`: add the right-click wallpaper action.
-- No broad host permissions, activeTab, scripting, tabs, or remote code.
+- `storage`: saves settings, layout and wallpaper references.
+- `contextMenus`: adds the right-click **Set as wallpaper** action.
+- No `tabs`, `activeTab`, `scripting`, host permissions or remote code.
 
 ## Project structure
-`manifest.json`, `background.js`, `newtab.html`, `newtab.js`, `styles.css`, `README.md`, and `icons/`.
+```
+manifest.json   extension manifest (MV3)
+background.js   context menu and toolbar icon handling
+newtab.html     New Tab page markup
+newtab.js       page logic (wallpapers, settings, layout, hide/show)
+styles.css      styles
+icons/          16, 48 and 128 px icons
+```
 
 ## Credit
-Built by [Webot](https://webot.surajdev.com/).
+Developed by [Suraj Dev](https://surajdev.com) for [Webot](https://webot.surajdev.com/).
